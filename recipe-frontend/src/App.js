@@ -13,7 +13,6 @@
 // export default App;
 import React, { useEffect, useState } from "react";
 import { Container, Typography, Pagination, Select, MenuItem } from "@mui/material";
-import api from "./api";
 import RecipeTable from "./components/RecipeTable";
 import RecipeDrawer from "./components/RecipeDrawer";
 import SearchFilters from "./components/SearchFilters";
@@ -26,23 +25,37 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [filters, setFilters] = useState({});
 
+  // 🔹 Load recipes from mock-data.json
   const fetchRecipes = async () => {
     try {
-      const response = await api.get("/recipes", { params: { page, limit } });
-      setRecipes(response.data.data);
-      setTotal(response.data.total);
+      const response = await fetch("/mock-data.json");
+      const data = await response.json();
+      setRecipes(data.recipes.slice((page - 1) * limit, page * limit)); // add pagination
+      setTotal(data.recipes.length);
     } catch (err) {
-      console.error(err);
+      console.error("Error loading mock data:", err);
     }
   };
 
+  // 🔹 Fake search using filters
   const searchRecipes = async () => {
     try {
-      const response = await api.get("/recipes/search", { params: filters });
-      setRecipes(response.data.data);
-      setTotal(response.data.data.length);
+      const response = await fetch("/mock-data.json");
+      const data = await response.json();
+
+      let filtered = data.recipes;
+
+      // Example filter: by title
+      if (filters.title) {
+        filtered = filtered.filter(r =>
+          r.title.toLowerCase().includes(filters.title.toLowerCase())
+        );
+      }
+
+      setRecipes(filtered.slice((page - 1) * limit, page * limit));
+      setTotal(filtered.length);
     } catch (err) {
-      console.error(err);
+      console.error("Error searching mock data:", err);
     }
   };
 
@@ -89,3 +102,4 @@ function App() {
 }
 
 export default App;
+

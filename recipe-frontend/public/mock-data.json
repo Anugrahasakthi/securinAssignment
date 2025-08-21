@@ -1,0 +1,24 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Spaghetti Carbonara",
+      "ingredients": "Spaghetti, Eggs, Pancetta, Parmesan",
+      "instructions": "Boil pasta, fry pancetta, mix with eggs and cheese."
+    },
+    {
+      "id": 2,
+      "title": "Chicken Curry",
+      "ingredients": "Chicken, Onion, Tomato, Spices",
+      "instructions": "Cook onions, add chicken, spices and simmer."
+    },
+    {
+      "id": 3,
+      "title": "Veggie Stir Fry",
+      "ingredients": "Mixed vegetables, Soy Sauce, Garlic",
+      "instructions": "Stir fry vegetables with garlic and soy sauce."
+    }
+  ]
+}
+
+
